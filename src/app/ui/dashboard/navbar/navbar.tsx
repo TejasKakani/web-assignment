@@ -24,9 +24,9 @@ export default function NavBar() {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div className="bg-slate-500 h-12 flex justify-between px-5 text-white p-3">
-      <div>
-        <h1>Logo</h1>
+    <div style={{ width: "-webkit-fill-available"}} className="bg-black border-white border-2 fixed rounded-md h-12 flex justify-between px-5 text-white p-3 md:left-48 left-16">
+      <div className="flex">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe5Yl8Y17JjFZnFEySotX7S97ZMgKzkbqEOg&s" alt="logo" className="invert w-20 " />
       </div>
       <div className="flex">
         <NavList classes="md:flex gap-3 hidden" />

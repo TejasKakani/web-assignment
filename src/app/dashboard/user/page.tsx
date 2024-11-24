@@ -1,7 +1,9 @@
+import Metrics from "@/app/ui/dashboard/metrics/metrics";
+
 export default function UserPage() {
     return (
         <div>
-        <h1>User</h1>
+            <Metrics model="userMetrics"/>
         </div>
     );
     }

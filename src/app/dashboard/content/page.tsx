@@ -1,7 +1,9 @@
+import Metrics from "@/app/ui/dashboard/metrics/metrics";
+
 export default function ContentPage() {
   return (
     <div>
-      <h1>Content</h1>
+      <Metrics model="contentMetrics" />
     </div>
   );
 }

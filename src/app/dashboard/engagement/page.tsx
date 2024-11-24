@@ -1,7 +1,9 @@
+import Metrics from "@/app/ui/dashboard/metrics/metrics";
+
 export default function EngagementPage() {
   return (
     <div>
-      <h1>Engagement</h1>
+      <Metrics model="engagementMetrics" />
     </div>
   );
 }

@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex">
+    <div className="flex bg-gray-200">
       <div>
         <SideBar />
         <SideBarM />
