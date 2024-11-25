@@ -5,11 +5,14 @@ import ApiRequest from "@/helpers/apirequest";
 
 import dynamic from 'next/dynamic';
 import 'chart.js/auto';
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import getAttributes from "@/helpers/arrtibutes";
+import { motion } from "framer-motion";
+import { homedir } from "os";
+import { getHoverColor } from "chart.js/helpers";
 
 export default function Metrics({ model, graphType }: { model: string, graphType?: string }): JSX.Element {
-
+    
     const fetchMetrics = useCallback(async () => {
         const response = await ApiRequest("https://api.socialverseapp.com/admin/dashboard");
         return response;
@@ -52,7 +55,7 @@ export default function Metrics({ model, graphType }: { model: string, graphType
         monthlyChartDataX.push(data.timestamp.toString());
         monthlyChartDataY.push(data.count);
     });
-
+            
     let Graph = dynamic(() => import('react-chartjs-2').then((mod) => mod.Bar), {
         ssr: false,
     });
@@ -80,7 +83,10 @@ export default function Metrics({ model, graphType }: { model: string, graphType
                 data: dailyChartDataY,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                borderWidth: 2,
+                hoverBackgroundColor: 'red',
+                hoverBorderColor: 'black',
                 tension: 0.1,
             },
         ],
@@ -93,8 +99,10 @@ export default function Metrics({ model, graphType }: { model: string, graphType
                 label: 'Monthly Metrics',
                 data: monthlyChartDataY,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                borderWidth: 2,
+                hoverBackgroundColor: 'red',
+                hoverBorderColor: 'black',
                 tension: 0.1,
             },
         ],
@@ -113,7 +121,12 @@ export default function Metrics({ model, graphType }: { model: string, graphType
 
                {
                      dailyAttributesArray.map((attribute: string, index: number) => {
-                          return <li className="bg-gray-600 text-white rounded-md p-1" key={index}>{attribute}: {dailyAttributes[attribute]}</li>
+                          return <motion.li 
+                          whileHover={{ scale: 1.2 }}
+                          whileDrag={{ scale: 1.2 }}
+                          drag={true}
+                          dragSnapToOrigin={true}
+                          className="bg-gray-600 text-white rounded-md p-1" key={index}>{attribute}: {dailyAttributes[attribute]}</motion.li>
                      })
                }
 
@@ -127,7 +140,12 @@ export default function Metrics({ model, graphType }: { model: string, graphType
             <ul className="flex flex-wrap gap-2 justify-evenly">
 
                 { monthlyAttributesArray.map((attribute: string, index: number) => {
-                    return <li className="bg-gray-600 text-white rounded-md p-1" key={index}>{attribute}: {monthlyAttributes[attribute]}</li>
+                    return <motion.li 
+                    whileHover={{ scale: 1.2 }}
+                    whileDrag={{ scale: 1.2 }}
+                    drag={true}
+                    dragSnapToOrigin={true}
+                    className="bg-gray-600 text-white rounded-md p-1" key={index}>{attribute}: {monthlyAttributes[attribute]}</motion.li>
                 })
                 }
 
